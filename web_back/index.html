@@ -150,12 +150,12 @@
       type:'get',
       url:'http://localhost:8000/admin/getuser',
       success:function(res){
-        console.log(res.data)
+        // console.log(res.data)
         $('#userName').html(res.data.nickname);
         $('#userImg').prop('src',res.data.user_pic);
       }
     });
-    
+
     $('#btnLogout').click(function () {
       if (confirm('确定退出吗？')) {
         $.ajax({
