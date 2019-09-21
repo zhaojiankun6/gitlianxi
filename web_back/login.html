@@ -1,57 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>大事件-后台登录页</title>
-    <link rel="stylesheet" type="text/css" href="css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="css/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css" />
-  </head>
 
-  <body>
-    <div class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">错误提示</h4>
-          </div>
-          <div class="modal-body">
-            <p id="pResult"></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-          </div>
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    <div class="main_wrap">
-      <div class="header">
-        <a href="#" class="logo"><img src="images/logo.png" alt=""/></a>
-        <div class="copyright">CopyRight © 2019 深圳百秀信息技术股份有限公司<br />All Rights Reserved</div>
-      </div>
-
-      <div class="login_form_con">
-        <div class="login_title"></div>
-        <form class="login_form">
-          <i class="iconfont icon-user"></i>
-          <i class="iconfont icon-key"></i>
-          <input id="userName" type="text" class="input_txt" placeholder="邮箱/手机号" />
-          <input id="password" type="password" class="input_pass" placeholder="密码" />
-          <!-- <input type="submit" class="input_sub" value="登 录"> -->
-          <button id="btnLogin" type="button" class="input_sub">登 录</button>
-        </form>
-      </div>
-    </div>
-
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>大事件-后台登录页</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css" />
+  <style>
+      .allll{
+        width: 300px;
+        height: 300px;
+        background: #000;
+      }
   
+  </style>
+</head>
 
-    
-  </body>
+<body>
+  <div class="main_wrap">
+    <div class="header">
+      <a href="#" class="logo"><img src="images/logo.png" alt="" /></a>
+      <div class="copyright">CopyRight © 2019 深圳百秀信息技术股份有限公司<br />All Rights Reserved</div>
+    </div>
+    <div class="login_form_con">
+      <div class="login_title"></div>
+      <form class="login_form">
+        <i class="iconfont icon-user"></i>
+        <i class="iconfont icon-key"></i>
+        <input id="userName" type="text" class="input_txt" placeholder="邮箱/手机号" />
+        <input id="password" type="password" class="input_pass" placeholder="密码" />
+        <!-- <input type="submit" class="input_sub" value="登 录"> -->
+        <button id="btnLogin" type="button" class="input_sub">登 录</button>
+      </form>
+    </div>
+  </div>
+  <!-- Large modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>
+
+
+</body>
+<script>
+  document.getElementById('btnLogin').onclick = function () {
+    var uname = document.getElementById('userName').value;
+    var password = document.getElementById('password').value;
+
+    if (uname || password) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', 'http://localhost:8000/admin/login');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        // console.log(this.responseText)//这得到的是字符串
+        var arr = JSON.parse(xhr.responseText)
+        if (arr.code == 200) {
+         location.href='index.html'
+        } else {
+          alert('账号或者密码错误')
+        }
+      };
+      xhr.send('user_name=' + uname + '&password=' + password);
+    }else{
+      alert('不能输入空')
+    }
+  }
+</script>
+
 </html>
